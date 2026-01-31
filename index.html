@@ -16,7 +16,7 @@
     <meta property="og:title" content="Local Telecom - Internet que Funciona 🚀">
     <meta property="og:description" content="Jogue, assista e trabalhe sem travar. Planos a partir de R$ 65,00. Fale com a gente no WhatsApp!">
     
-    <!-- IMAGEM DE COMPARTILHAMENTO (Link Adaptado para RAW) -->
+    <!-- IMAGEM DE COMPARTILHAMENTO (Link do GitHub) -->
     <meta property="og:image" content="https://raw.githubusercontent.com/gilneilaurindo/LocalTelecom-/main/logo%20(1).png">
     <meta property="og:image:secure_url" content="https://raw.githubusercontent.com/gilneilaurindo/LocalTelecom-/main/logo%20(1).png">
     <meta property="og:image:type" content="image/png">
@@ -195,8 +195,8 @@
         <div class="flex flex-col items-center animate-logo-enter">
             <div class="relative">
                 <div class="absolute inset-0 bg-brand-primary blur-[60px] opacity-40 rounded-full animate-pulse-slow"></div>
-                <!-- LOGO ATUALIZADA -->
-                <img src="https://raw.githubusercontent.com/gilneilaurindo/LocalTelecom-/main/logo%20(1).png" alt="Local Telecom" class="h-20 md:h-28 w-auto relative z-10">
+                <!-- LOGO ORIGINAL (SITE) -->
+                <img src="https://www.localtelecom.com.br/resources/images/logo.png?v=1.0.1" alt="Local Telecom" class="h-20 md:h-28 w-auto relative z-10">
             </div>
             <div class="w-32 h-1 bg-gray-800 rounded-full overflow-hidden mt-8">
                 <div class="h-full bg-gradient-to-r from-brand-primary to-brand-light animate-[width_1.2s_ease-in-out_forwards]" style="width: 0%"></div>
@@ -227,8 +227,8 @@
                     <!-- Efeito de Luz/LED Atrás da Logo -->
                     <div class="absolute w-[120%] h-[120%] bg-brand-light/30 blur-xl rounded-full animate-pulse-slow z-0"></div>
                     
-                    <!-- LOGO ATUALIZADA -->
-                    <img src="https://raw.githubusercontent.com/gilneilaurindo/LocalTelecom-/main/logo%20(1).png" alt="Local Telecom" class="h-10 md:h-12 w-auto relative z-10 drop-shadow-[0_0_10px_rgba(0,0,0,0.5)]">
+                    <!-- LOGO ORIGINAL (SITE) -->
+                    <img src="https://www.localtelecom.com.br/resources/images/logo.png?v=1.0.1" alt="Local Telecom" class="h-10 md:h-12 w-auto relative z-10 drop-shadow-[0_0_10px_rgba(0,0,0,0.5)]">
                 </div>
 
                 <div class="hidden md:flex items-center space-x-8">
@@ -336,8 +336,8 @@
                             <div class="w-16 h-16 mx-auto bg-gradient-to-br from-brand-primary/20 to-transparent rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500">
                                 <i class="fas fa-headset text-3xl text-brand-light"></i>
                             </div>
-                            <h3 class="text-xl font-bold mb-3 text-white">Suporte Local</h3>
-                            <p class="text-gray-400 text-sm leading-relaxed">Atendimento rápido e humanizado. Resolvemos seus problemas sem burocracia.</p>
+                            <h3 class="text-xl font-bold mb-3 text-white">Suporte Especializado</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed">Equipe altamente capacitada pronta para te atender. Resolvemos com eficiência.</p>
                         </div>
                     </div>
                 </div>
@@ -374,10 +374,21 @@
                             <button id="btn-rural" onclick="switchPlanType('rural')" class="px-6 py-2 rounded-full text-gray-400 hover:text-white transition-colors text-sm font-medium">NA ZONA RURAL</button>
                         </div>
 
+                        <!-- FAIXA DE PROMOÇÃO -->
+                        <div class="text-center mb-8 animate-pulse">
+                            <div class="inline-block bg-gradient-to-r from-red-600 to-orange-600 text-white font-black text-xs md:text-sm px-6 py-2 rounded-full shadow-lg shadow-red-600/30">
+                                🔥 PROMOÇÃO IMPERDÍVEL: 30% OFF NOS 3 PRIMEIROS MESES! 🔥
+                            </div>
+                        </div>
+
                         <!-- PLANOS URBANOS (FIBRA) -->
                         <div id="plans-urbano" class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 items-end animate-fade-in-up">
                             <!-- 50MB -->
-                            <div class="glass-panel rounded-2xl p-6 flex flex-col h-full hover:border-brand-primary/50 transition-all duration-300 group">
+                            <div class="glass-panel rounded-2xl p-6 flex flex-col h-full hover:border-brand-primary/50 transition-all duration-300 group relative overflow-hidden">
+                                <!-- SELO PROMOÇÃO -->
+                                <div class="absolute top-0 right-0 bg-gradient-to-bl from-green-500 to-emerald-600 text-white text-[10px] font-bold px-3 py-1.5 rounded-bl-xl rounded-tr-xl z-20 shadow-lg">
+                                    30% OFF (3 Meses)
+                                </div>
                                 <div class="mb-4">
                                     <h3 class="text-gray-400 font-bold text-lg">Básico</h3>
                                     <div class="flex items-baseline gap-1 mt-2">
@@ -399,7 +410,10 @@
                             </div>
 
                             <!-- 100MB -->
-                            <div class="glass-panel rounded-2xl p-6 flex flex-col h-full hover:border-brand-primary/50 transition-all duration-300 group">
+                            <div class="glass-panel rounded-2xl p-6 flex flex-col h-full hover:border-brand-primary/50 transition-all duration-300 group relative overflow-hidden">
+                                <div class="absolute top-0 right-0 bg-gradient-to-bl from-green-500 to-emerald-600 text-white text-[10px] font-bold px-3 py-1.5 rounded-bl-xl rounded-tr-xl z-20 shadow-lg">
+                                    30% OFF (3 Meses)
+                                </div>
                                 <div class="mb-4">
                                     <h3 class="text-gray-400 font-bold text-lg">Essencial</h3>
                                     <div class="flex items-baseline gap-1 mt-2">
@@ -420,7 +434,10 @@
                             </div>
 
                             <!-- 200MB -->
-                            <div class="glass-panel rounded-2xl p-6 flex flex-col h-full hover:border-brand-primary/50 transition-all duration-300 group">
+                            <div class="glass-panel rounded-2xl p-6 flex flex-col h-full hover:border-brand-primary/50 transition-all duration-300 group relative overflow-hidden">
+                                <div class="absolute top-0 right-0 bg-gradient-to-bl from-green-500 to-emerald-600 text-white text-[10px] font-bold px-3 py-1.5 rounded-bl-xl rounded-tr-xl z-20 shadow-lg">
+                                    30% OFF (3 Meses)
+                                </div>
                                 <div class="mb-4">
                                     <h3 class="text-gray-400 font-bold text-lg">Família</h3>
                                     <div class="flex items-baseline gap-1 mt-2">
@@ -443,7 +460,10 @@
                             <!-- 400MB DESTAQUE -->
                             <div class="relative transform md:-translate-y-4 z-20">
                                 <div class="absolute -inset-[2px] bg-gradient-to-b from-brand-light to-brand-primary rounded-2xl blur-sm opacity-60"></div>
-                                <div class="relative bg-[#0b1121] rounded-2xl p-6 flex flex-col h-full border border-brand-primary/30 shadow-2xl shadow-brand-primary/20">
+                                <div class="relative bg-[#0b1121] rounded-2xl p-6 flex flex-col h-full border border-brand-primary/30 shadow-2xl shadow-brand-primary/20 overflow-hidden">
+                                    <div class="absolute top-0 right-0 bg-gradient-to-bl from-green-500 to-emerald-600 text-white text-[10px] font-bold px-3 py-1.5 rounded-bl-xl rounded-tr-xl z-20 shadow-lg">
+                                        30% OFF (3 Meses)
+                                    </div>
                                     <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-gradient-to-r from-brand-primary to-brand-light text-white text-xs font-black px-4 py-1.5 rounded-full uppercase tracking-wider shadow-lg">
                                         Mais Vendido
                                     </div>
@@ -470,7 +490,10 @@
                             </div>
 
                             <!-- 600MB -->
-                            <div class="glass-panel rounded-2xl p-6 flex flex-col h-full hover:border-brand-primary/50 transition-all duration-300 group">
+                            <div class="glass-panel rounded-2xl p-6 flex flex-col h-full hover:border-brand-primary/50 transition-all duration-300 group relative overflow-hidden">
+                                <div class="absolute top-0 right-0 bg-gradient-to-bl from-green-500 to-emerald-600 text-white text-[10px] font-bold px-3 py-1.5 rounded-bl-xl rounded-tr-xl z-20 shadow-lg">
+                                    30% OFF (3 Meses)
+                                </div>
                                 <div class="mb-4">
                                     <h3 class="text-gray-400 font-bold text-lg">Profissional</h3>
                                     <div class="flex items-baseline gap-1 mt-2">
@@ -494,7 +517,10 @@
                         <!-- PLANOS RURAIS (RADIO) -->
                         <div id="plans-rural" class="hidden grid md:grid-cols-2 lg:grid-cols-3 gap-6 items-end animate-unlock justify-center">
                             <!-- 50MB RURAL -->
-                            <div class="glass-panel rounded-2xl p-6 flex flex-col h-full border border-yellow-500/20 hover:border-yellow-500/50 transition-all duration-300 group">
+                            <div class="glass-panel rounded-2xl p-6 flex flex-col h-full border border-yellow-500/20 hover:border-yellow-500/50 transition-all duration-300 group relative overflow-hidden">
+                                <div class="absolute top-0 right-0 bg-gradient-to-bl from-green-500 to-emerald-600 text-white text-[10px] font-bold px-3 py-1.5 rounded-bl-xl rounded-tr-xl z-20 shadow-lg">
+                                    30% OFF (3 Meses)
+                                </div>
                                 <div class="absolute top-4 right-4 text-yellow-500">
                                     <i class="fas fa-broadcast-tower"></i>
                                 </div>
@@ -520,7 +546,10 @@
                             <!-- 100MB RURAL -->
                             <div class="relative transform md:-translate-y-4 z-20">
                                 <div class="absolute -inset-[2px] bg-gradient-to-b from-yellow-400 to-orange-500 rounded-2xl blur-sm opacity-40"></div>
-                                <div class="relative bg-[#0b1121] rounded-2xl p-6 flex flex-col h-full border border-yellow-500/30 shadow-2xl">
+                                <div class="relative bg-[#0b1121] rounded-2xl p-6 flex flex-col h-full border border-yellow-500/30 shadow-2xl overflow-hidden">
+                                    <div class="absolute top-0 right-0 bg-gradient-to-bl from-green-500 to-emerald-600 text-white text-[10px] font-bold px-3 py-1.5 rounded-bl-xl rounded-tr-xl z-20 shadow-lg">
+                                        30% OFF (3 Meses)
+                                    </div>
                                     <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-yellow-500 text-brand-dark text-xs font-black px-4 py-1.5 rounded-full uppercase tracking-wider shadow-lg">
                                         Rural Vip
                                     </div>
@@ -545,7 +574,10 @@
                             </div>
 
                             <!-- 200MB RURAL -->
-                            <div class="glass-panel rounded-2xl p-6 flex flex-col h-full border border-yellow-500/20 hover:border-yellow-500/50 transition-all duration-300 group">
+                            <div class="glass-panel rounded-2xl p-6 flex flex-col h-full border border-yellow-500/20 hover:border-yellow-500/50 transition-all duration-300 group relative overflow-hidden">
+                                <div class="absolute top-0 right-0 bg-gradient-to-bl from-green-500 to-emerald-600 text-white text-[10px] font-bold px-3 py-1.5 rounded-bl-xl rounded-tr-xl z-20 shadow-lg">
+                                    30% OFF (3 Meses)
+                                </div>
                                 <div class="absolute top-4 right-4 text-yellow-500">
                                     <i class="fas fa-broadcast-tower"></i>
                                 </div>
@@ -647,7 +679,7 @@
                 
                 <div class="col-span-1">
                     <!-- LOGO ATUALIZADA NO RODAPÉ -->
-                    <img src="https://raw.githubusercontent.com/gilneilaurindo/LocalTelecom-/main/logo%20(1).png" alt="Local Telecom" class="h-8 w-auto mb-6 opacity-80 grayscale hover:grayscale-0 transition-all duration-500">
+                    <img src="https://www.localtelecom.com.br/resources/images/logo.png?v=1.0.1" alt="Local Telecom" class="h-8 w-auto mb-6 opacity-80 grayscale hover:grayscale-0 transition-all duration-500">
                     <p class="text-gray-500 text-sm leading-relaxed mb-6">
                         Provedor licenciado pela Anatel. Levando tecnologia de ponta para lares e empresas.
                     </p>

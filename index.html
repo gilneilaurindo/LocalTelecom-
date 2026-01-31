@@ -10,15 +10,19 @@
 
     <!-- SEO e Redes Sociais (Open Graph) -->
     <meta name="description" content="A melhor internet da sua cidade! Fibra Óptica e Rádio com ultra velocidade. Instalação Grátis* e atendimento humanizado. Assine já!">
+    <meta name="theme-color" content="#0055ff">
     
-    <!-- Facebook / WhatsApp / LinkedIn -->
+    <!-- Configuração de Compartilhamento (WhatsApp, Facebook, etc) -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://www.localtelecom.com.br/">
     <meta property="og:title" content="Local Telecom - A Melhor Internet da Sua Cidade 🚀">
     <meta property="og:description" content="🎮 Jogue sem lag, 🎬 Assista em 4K e 💼 Trabalhe sem travar. Planos a partir de R$ 65,00. Clique para falar com a gente!">
+    <!-- Imagem de compartilhamento solicitada -->
     <meta property="og:image" content="https://www.localtelecom.com.br/resources/images/logo.png?v=1.0.1">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
 
-    <!-- Twitter -->
+    <!-- Twitter Card -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://www.localtelecom.com.br/">
     <meta property="twitter:title" content="Local Telecom - Conexão de Verdade">
@@ -53,6 +57,7 @@
                         'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
                         'logo-enter': 'logoEnter 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards',
                         'wiggle': 'wiggle 0.5s ease-in-out infinite',
+                        'unlock': 'unlock 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards',
                     },
                     keyframes: {
                         float: {
@@ -74,6 +79,10 @@
                         wiggle: {
                             '0%, 100%': { transform: 'rotate(-3deg)' },
                             '50%': { transform: 'rotate(3deg)' },
+                        },
+                        unlock: {
+                            '0%': { transform: 'scale(0.95)', opacity: '0' },
+                            '100%': { transform: 'scale(1)', opacity: '1' }
                         }
                     }
                 }
@@ -220,6 +229,11 @@
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        
+        /* Classe utilitária para esconder elementos */
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 <body class="antialiased selection:bg-brand-primary selection:text-white">
@@ -296,15 +310,16 @@
         <div id="home" class="page-section active-page">
             
             <!-- Hero Section (Destaque) -->
-            <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden min-h-screen flex items-center">
+            <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden min-h-screen flex items-center justify-center">
                 <!-- Background Elements -->
                 <div class="absolute inset-0 bg-cyber-grid z-0"></div>
                 <div class="orb bg-brand-primary w-96 h-96 top-0 left-0 -translate-x-1/2 -translate-y-1/2 animate-pulse-slow"></div>
 
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-                    <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <!-- Layout Centralizado -->
+                    <div class="flex justify-center items-center">
                         <!-- Texto -->
-                        <div class="text-center lg:text-left reveal active">
+                        <div class="text-center reveal active max-w-4xl mx-auto">
                             <div class="inline-flex items-center px-3 py-1 rounded-full border border-brand-light/30 bg-brand-primary/10 text-brand-light text-xs font-semibold tracking-wide uppercase mb-6 backdrop-blur-sm animate-fade-in-up">
                                 <span class="w-2 h-2 rounded-full bg-brand-light mr-2 animate-ping"></span>
                                 A melhor da sua cidade
@@ -313,12 +328,12 @@
                                 Internet para <br>
                                 <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-light to-brand-primary text-neon animate-pulse">todos os momentos!</span>
                             </h1>
-                            <p class="text-lg text-gray-400 mb-8 max-w-lg mx-auto lg:mx-0">
+                            <p class="text-lg text-gray-400 mb-8 max-w-lg mx-auto">
                                 Jogue, assista filmes em 4K e trabalhe sem travar. A melhor conexão da região está aqui.
                             </p>
 
                             <!-- Seletor de Cidade (Simulado) -->
-                            <div class="bg-white/5 backdrop-blur-md p-4 rounded-2xl border border-white/10 max-w-md mx-auto lg:mx-0 shadow-2xl shadow-brand-primary/20 transform hover:scale-[1.02] transition-transform duration-300">
+                            <div class="bg-white/5 backdrop-blur-md p-4 rounded-2xl border border-white/10 max-w-md mx-auto shadow-2xl shadow-brand-primary/20 transform hover:scale-[1.02] transition-transform duration-300">
                                 <label class="block text-sm text-gray-400 mb-2">Onde você está?</label>
                                 <div class="relative">
                                     <select id="city-selector" class="w-full bg-brand-dark border border-brand-primary/50 text-white rounded-lg px-4 py-3 appearance-none focus:outline-none focus:ring-2 focus:ring-brand-light cursor-pointer transition-all hover:bg-brand-dark/80">
@@ -335,37 +350,10 @@
                                         <i class="fas fa-map-marker-alt animate-bounce"></i>
                                     </div>
                                 </div>
-                                <div id="city-message" class="mt-3 text-sm text-brand-light hidden">
-                                    <i class="fas fa-check-circle mr-1"></i> Cobertura disponível na sua área!
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Imagem/Ilustração Hero -->
-                        <div class="relative hidden lg:block animate-float reveal active">
-                            <div class="relative rounded-3xl overflow-hidden border-2 border-brand-primary/30 shadow-[0_0_50px_rgba(0,85,255,0.3)] group perspective-1000">
-                                <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent opacity-80 z-10"></div>
-                                <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Pessoas felizes usando internet" class="w-full object-cover h-[500px] transform group-hover:scale-110 transition-transform duration-700">
                                 
-                                <!-- Cards Flutuantes (Decoração) -->
-                                <div class="absolute bottom-10 left-10 z-20 glass-panel p-4 rounded-xl flex items-center gap-3 animate-pulse hover:scale-110 transition-transform cursor-default">
-                                    <div class="bg-green-500/20 p-2 rounded-full">
-                                        <i class="fas fa-wifi text-green-400"></i>
-                                    </div>
-                                    <div>
-                                        <p class="text-xs text-gray-400">Status da Rede</p>
-                                        <p class="font-bold text-green-400">100% Estável</p>
-                                    </div>
-                                </div>
-                                
-                                <div class="absolute top-10 right-10 z-20 glass-panel p-4 rounded-xl flex items-center gap-3 hover:scale-110 transition-transform cursor-default">
-                                    <div class="bg-brand-primary/20 p-2 rounded-full">
-                                        <i class="fas fa-rocket text-brand-light"></i>
-                                    </div>
-                                    <div>
-                                        <p class="text-xs text-gray-400">Ping</p>
-                                        <p class="font-bold text-brand-light">4ms</p>
-                                    </div>
+                                <!-- Container para o Botão Estratégico -->
+                                <div id="city-action-container" class="mt-4 hidden">
+                                    <!-- O botão será inserido aqui via JS -->
                                 </div>
                             </div>
                         </div>
@@ -408,119 +396,134 @@
             </section>
 
             <!-- Seção de Planos (Core) -->
-            <section id="planos-section" class="py-20 relative">
+            <section id="planos-section" class="py-20 relative min-h-[600px]">
                 <div class="absolute inset-0 bg-gradient-to-b from-brand-dark to-[#000d26]"></div>
                 
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                     <div class="text-center mb-16 reveal">
                         <h2 class="text-4xl font-black mb-4">Escolha seu <span class="text-brand-light text-neon">Plano Ideal</span></h2>
-                        <div class="flex justify-center gap-4 mt-8">
+                    </div>
+
+                    <!-- MENSAGEM DE BLOQUEIO (APARECE INICIALMENTE) -->
+                    <div id="planos-placeholder" class="text-center py-12 animate-float">
+                        <div class="w-24 h-24 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-6 border border-brand-primary/30">
+                            <i class="fas fa-map-marker-alt text-5xl text-gray-500 animate-bounce"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-300 mb-2">Preços variam por região</h3>
+                        <p class="text-gray-500 max-w-md mx-auto mb-8">Por favor, selecione sua cidade no início da página para desbloquear as ofertas exclusivas disponíveis para o seu endereço.</p>
+                        <button onclick="document.getElementById('city-selector').focus(); document.getElementById('home').scrollIntoView({behavior:'smooth'})" class="px-8 py-3 bg-brand-primary/20 hover:bg-brand-primary text-brand-light hover:text-white border border-brand-primary/50 rounded-full transition-all font-bold">
+                            SELECIONAR CIDADE
+                        </button>
+                    </div>
+
+                    <!-- GRID DE PLANOS (OCULTO INICIALMENTE) -->
+                    <div id="planos-grid" class="hidden">
+                        <div class="flex justify-center gap-4 mt-8 mb-12">
                             <button class="px-6 py-2 rounded-full bg-brand-primary text-white font-bold text-sm shadow-[0_0_15px_rgba(0,85,255,0.5)] transform hover:scale-105 transition-all">NA CIDADE</button>
                             <button class="px-6 py-2 rounded-full bg-transparent border border-gray-600 text-gray-400 hover:border-brand-light hover:text-white transition-all text-sm transform hover:scale-105">NA ZONA RURAL</button>
                         </div>
-                    </div>
 
-                    <!-- Grid de Planos -->
-                    <div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 items-end">
-                        
-                        <!-- Plano 50MB -->
-                        <div class="tilt-card reveal glass-panel rounded-2xl p-6 text-center border border-white/5 hover:border-brand-primary/50 flex flex-col justify-between h-full group hover:bg-white/5">
-                            <div>
-                                <div class="text-gray-400 font-bold text-xl mb-2">50 MB</div>
-                                <div class="text-xs text-gray-500 mb-6 flex justify-center items-center gap-2">
-                                    <span><i class="fas fa-arrow-down text-brand-light"></i> 50 Mb</span>
-                                    <span><i class="fas fa-arrow-up text-green-400"></i> 20 Mb</span>
-                                </div>
-                                <div class="text-3xl font-black text-white mb-1 group-hover:text-brand-light transition-colors">R$ 65<small class="text-sm text-gray-400">,00</small></div>
-                                <div class="text-xs text-gray-500 mb-6">/mês</div>
-                            </div>
-                            <button onclick="navigateTo('checkout-page', '50MB - R$65,00')" class="w-full py-2 rounded-lg border border-brand-primary text-brand-primary hover:bg-brand-primary hover:text-white transition-all font-bold text-sm">Assinar</button>
-                        </div>
-
-                        <!-- Plano 100MB -->
-                        <div class="tilt-card reveal glass-panel rounded-2xl p-6 text-center border border-white/5 hover:border-brand-primary/50 flex flex-col justify-between h-full group hover:bg-white/5">
-                            <div>
-                                <div class="text-gray-400 font-bold text-xl mb-2">100 MB</div>
-                                <div class="text-xs text-gray-500 mb-6 flex justify-center items-center gap-2">
-                                    <span><i class="fas fa-arrow-down text-brand-light"></i> 100 Mb</span>
-                                    <span><i class="fas fa-arrow-up text-green-400"></i> 50 Mb</span>
-                                </div>
-                                <div class="text-3xl font-black text-white mb-1 group-hover:text-brand-light transition-colors">R$ 70<small class="text-sm text-gray-400">,00</small></div>
-                                <div class="text-xs text-gray-500 mb-6">/mês</div>
-                            </div>
-                            <button onclick="navigateTo('checkout-page', '100MB - R$70,00')" class="w-full py-2 rounded-lg border border-brand-primary text-brand-primary hover:bg-brand-primary hover:text-white transition-all font-bold text-sm">Assinar</button>
-                        </div>
-
-                        <!-- Plano 200MB -->
-                        <div class="tilt-card reveal glass-panel rounded-2xl p-6 text-center border border-white/5 hover:border-brand-primary/50 flex flex-col justify-between h-full group hover:bg-white/5">
-                            <div>
-                                <div class="text-gray-400 font-bold text-xl mb-2">200 MB</div>
-                                <div class="text-xs text-gray-500 mb-6 flex justify-center items-center gap-2">
-                                    <span><i class="fas fa-arrow-down text-brand-light"></i> 200 Mb</span>
-                                    <span><i class="fas fa-arrow-up text-green-400"></i> 80 Mb</span>
-                                </div>
-                                <div class="text-3xl font-black text-white mb-1 group-hover:text-brand-light transition-colors">R$ 80<small class="text-sm text-gray-400">,00</small></div>
-                                <div class="text-xs text-gray-500 mb-6">/mês</div>
-                            </div>
-                            <button onclick="navigateTo('checkout-page', '200MB - R$80,00')" class="w-full py-2 rounded-lg border border-brand-primary text-brand-primary hover:bg-brand-primary hover:text-white transition-all font-bold text-sm">Assinar</button>
-                        </div>
-
-                        <!-- Plano 400MB (DESTAQUE) -->
-                        <div class="reveal relative transform md:-translate-y-4 z-20 hover:scale-105 transition-all duration-500">
-                            <div class="absolute -inset-1 bg-gradient-to-r from-brand-primary to-brand-light rounded-2xl blur opacity-75 animate-pulse"></div>
-                            <div class="relative bg-brand-dark rounded-2xl p-6 text-center border border-brand-light shadow-2xl flex flex-col justify-between h-full">
+                        <div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 items-end">
+                            
+                            <!-- Plano 50MB -->
+                            <div class="tilt-card reveal glass-panel rounded-2xl p-6 text-center border border-white/5 hover:border-brand-primary/50 flex flex-col justify-between h-full group hover:bg-white/5">
                                 <div>
-                                    <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-brand-primary text-white text-xs font-bold px-4 py-1 rounded-full shadow-lg tracking-wider animate-bounce">
-                                        DESTAQUE
+                                    <div class="text-gray-400 font-bold text-xl mb-2">50 MB</div>
+                                    <div class="text-xs text-gray-500 mb-6 flex justify-center items-center gap-2">
+                                        <span><i class="fas fa-arrow-down text-brand-light"></i> 50 Mb</span>
+                                        <span><i class="fas fa-arrow-up text-green-400"></i> 20 Mb</span>
                                     </div>
-                                    <div class="text-brand-light font-black text-3xl mb-2 mt-2">400 MB</div>
-                                    <div class="text-xs text-gray-400 mb-4 flex justify-center items-center gap-2">
-                                        <span><i class="fas fa-arrow-down"></i> 400 Mb</span>
-                                        <span><i class="fas fa-arrow-up"></i> 100 Mb</span>
+                                    <div class="text-3xl font-black text-white mb-1 group-hover:text-brand-light transition-colors">R$ 65<small class="text-sm text-gray-400">,00</small></div>
+                                    <div class="text-xs text-gray-500 mb-6">/mês</div>
+                                </div>
+                                <button onclick="navigateTo('checkout-page', '50MB - R$65,00')" class="w-full py-2 rounded-lg border border-brand-primary text-brand-primary hover:bg-brand-primary hover:text-white transition-all font-bold text-sm">Assinar</button>
+                            </div>
+
+                            <!-- Plano 100MB -->
+                            <div class="tilt-card reveal glass-panel rounded-2xl p-6 text-center border border-white/5 hover:border-brand-primary/50 flex flex-col justify-between h-full group hover:bg-white/5">
+                                <div>
+                                    <div class="text-gray-400 font-bold text-xl mb-2">100 MB</div>
+                                    <div class="text-xs text-gray-500 mb-6 flex justify-center items-center gap-2">
+                                        <span><i class="fas fa-arrow-down text-brand-light"></i> 100 Mb</span>
+                                        <span><i class="fas fa-arrow-up text-green-400"></i> 50 Mb</span>
                                     </div>
-                                    <div class="text-4xl font-black text-white mb-1 drop-shadow-lg">R$ 100<small class="text-lg text-gray-300">,00</small></div>
-                                    <div class="text-xs text-gray-400 mb-4">/mês</div>
+                                    <div class="text-3xl font-black text-white mb-1 group-hover:text-brand-light transition-colors">R$ 70<small class="text-sm text-gray-400">,00</small></div>
+                                    <div class="text-xs text-gray-500 mb-6">/mês</div>
+                                </div>
+                                <button onclick="navigateTo('checkout-page', '100MB - R$70,00')" class="w-full py-2 rounded-lg border border-brand-primary text-brand-primary hover:bg-brand-primary hover:text-white transition-all font-bold text-sm">Assinar</button>
+                            </div>
+
+                            <!-- Plano 200MB -->
+                            <div class="tilt-card reveal glass-panel rounded-2xl p-6 text-center border border-white/5 hover:border-brand-primary/50 flex flex-col justify-between h-full group hover:bg-white/5">
+                                <div>
+                                    <div class="text-gray-400 font-bold text-xl mb-2">200 MB</div>
+                                    <div class="text-xs text-gray-500 mb-6 flex justify-center items-center gap-2">
+                                        <span><i class="fas fa-arrow-down text-brand-light"></i> 200 Mb</span>
+                                        <span><i class="fas fa-arrow-up text-green-400"></i> 80 Mb</span>
+                                    </div>
+                                    <div class="text-3xl font-black text-white mb-1 group-hover:text-brand-light transition-colors">R$ 80<small class="text-sm text-gray-400">,00</small></div>
+                                    <div class="text-xs text-gray-500 mb-6">/mês</div>
+                                </div>
+                                <button onclick="navigateTo('checkout-page', '200MB - R$80,00')" class="w-full py-2 rounded-lg border border-brand-primary text-brand-primary hover:bg-brand-primary hover:text-white transition-all font-bold text-sm">Assinar</button>
+                            </div>
+
+                            <!-- Plano 400MB (DESTAQUE) -->
+                            <div class="reveal relative transform md:-translate-y-4 z-20 hover:scale-105 transition-all duration-500">
+                                <div class="absolute -inset-1 bg-gradient-to-r from-brand-primary to-brand-light rounded-2xl blur opacity-75 animate-pulse"></div>
+                                <div class="relative bg-brand-dark rounded-2xl p-6 text-center border border-brand-light shadow-2xl flex flex-col justify-between h-full">
+                                    <div>
+                                        <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-brand-primary text-white text-xs font-bold px-4 py-1 rounded-full shadow-lg tracking-wider animate-bounce">
+                                            DESTAQUE
+                                        </div>
+                                        <div class="text-brand-light font-black text-3xl mb-2 mt-2">400 MB</div>
+                                        <div class="text-xs text-gray-400 mb-4 flex justify-center items-center gap-2">
+                                            <span><i class="fas fa-arrow-down"></i> 400 Mb</span>
+                                            <span><i class="fas fa-arrow-up"></i> 100 Mb</span>
+                                        </div>
+                                        <div class="text-4xl font-black text-white mb-1 drop-shadow-lg">R$ 100<small class="text-lg text-gray-300">,00</small></div>
+                                        <div class="text-xs text-gray-400 mb-4">/mês</div>
+                                        
+                                        <div class="space-y-1 mb-6 text-xs text-gray-300 uppercase tracking-wide font-semibold">
+                                            <p>FIBRA ÓPTICA</p>
+                                            <p>Instalação Grátis</p>
+                                            <p class="text-[10px] text-gray-400 normal-case font-normal mt-2 border-t border-white/10 pt-2">Plano RESIDENCIAL com fidelidade.</p>
+                                        </div>
+                                    </div>
+
+                                    <button onclick="navigateTo('checkout-page', '400MB - R$100,00')" class="w-full py-3 rounded-lg bg-gradient-to-r from-brand-primary to-brand-light text-white font-black text-sm hover:shadow-[0_0_20px_rgba(0,204,255,0.6)] transition-all btn-glow uppercase tracking-wider">
+                                        <i class="fas fa-shopping-cart mr-2"></i> Assine Agora
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Plano 600MB -->
+                            <div class="tilt-card reveal glass-panel rounded-2xl p-6 text-center border border-white/5 hover:border-brand-primary/50 flex flex-col justify-between h-full group hover:bg-white/5">
+                                <div>
+                                    <div class="text-gray-400 font-bold text-xl mb-2">600 MB</div>
+                                    <div class="text-xs text-gray-500 mb-6 flex justify-center items-center gap-2">
+                                        <span><i class="fas fa-arrow-down text-brand-light"></i> 600 Mb</span>
+                                        <span><i class="fas fa-arrow-up text-green-400"></i> 120 Mb</span>
+                                    </div>
+                                    <div class="text-3xl font-black text-white mb-1 group-hover:text-brand-light transition-colors">R$ 130<small class="text-sm text-gray-400">,00</small></div>
+                                    <div class="text-xs text-gray-500 mb-6">/mês</div>
                                     
-                                    <div class="space-y-1 mb-6 text-xs text-gray-300 uppercase tracking-wide font-semibold">
+                                    <div class="space-y-1 mb-6 text-xs text-gray-400 uppercase tracking-wide font-semibold">
                                         <p>FIBRA ÓPTICA</p>
                                         <p>Instalação Grátis</p>
-                                        <p class="text-[10px] text-gray-400 normal-case font-normal mt-2 border-t border-white/10 pt-2">Plano RESIDENCIAL com fidelidade.</p>
+                                        <p class="text-[10px] text-gray-500 normal-case font-normal mt-2 border-t border-white/5 pt-2">Plano RESIDENCIAL com fidelidade.</p>
                                     </div>
                                 </div>
-
-                                <button onclick="navigateTo('checkout-page', '400MB - R$100,00')" class="w-full py-3 rounded-lg bg-gradient-to-r from-brand-primary to-brand-light text-white font-black text-sm hover:shadow-[0_0_20px_rgba(0,204,255,0.6)] transition-all btn-glow uppercase tracking-wider">
-                                    <i class="fas fa-shopping-cart mr-2"></i> Assine Agora
-                                </button>
+                                <button onclick="navigateTo('checkout-page', '600MB - R$130,00')" class="w-full py-2 rounded-lg border border-brand-primary text-brand-primary hover:bg-brand-primary hover:text-white transition-all font-bold text-sm">Assinar</button>
                             </div>
-                        </div>
 
-                        <!-- Plano 600MB -->
-                        <div class="tilt-card reveal glass-panel rounded-2xl p-6 text-center border border-white/5 hover:border-brand-primary/50 flex flex-col justify-between h-full group hover:bg-white/5">
-                            <div>
-                                <div class="text-gray-400 font-bold text-xl mb-2">600 MB</div>
-                                <div class="text-xs text-gray-500 mb-6 flex justify-center items-center gap-2">
-                                    <span><i class="fas fa-arrow-down text-brand-light"></i> 600 Mb</span>
-                                    <span><i class="fas fa-arrow-up text-green-400"></i> 120 Mb</span>
-                                </div>
-                                <div class="text-3xl font-black text-white mb-1 group-hover:text-brand-light transition-colors">R$ 130<small class="text-sm text-gray-400">,00</small></div>
-                                <div class="text-xs text-gray-500 mb-6">/mês</div>
-                                
-                                <div class="space-y-1 mb-6 text-xs text-gray-400 uppercase tracking-wide font-semibold">
-                                    <p>FIBRA ÓPTICA</p>
-                                    <p>Instalação Grátis</p>
-                                    <p class="text-[10px] text-gray-500 normal-case font-normal mt-2 border-t border-white/5 pt-2">Plano RESIDENCIAL com fidelidade.</p>
-                                </div>
-                            </div>
-                            <button onclick="navigateTo('checkout-page', '600MB - R$130,00')" class="w-full py-2 rounded-lg border border-brand-primary text-brand-primary hover:bg-brand-primary hover:text-white transition-all font-bold text-sm">Assinar</button>
                         </div>
-
-                    </div>
-                    
-                    <!-- Aviso Legal -->
-                    <div class="mt-12 text-center reveal">
-                        <p class="text-[10px] text-gray-600 max-w-3xl mx-auto">
-                            * A instalação grátis é concedida mediante permanência mínima de 12 meses (fidelidade). Em caso de cancelamento antes do prazo, será cobrada multa proporcional. A velocidade anunciada de acesso e tráfego na internet é a nominal máxima, podendo sofrer variações decorrentes de fatores externos. Consulte disponibilidade técnica para seu endereço.
-                        </p>
+                        
+                        <!-- Aviso Legal -->
+                        <div class="mt-12 text-center reveal">
+                            <p class="text-[10px] text-gray-600 max-w-3xl mx-auto">
+                                * A instalação grátis é concedida mediante permanência mínima de 12 meses (fidelidade). Em caso de cancelamento antes do prazo, será cobrada multa proporcional. A velocidade anunciada de acesso e tráfego na internet é a nominal máxima, podendo sofrer variações decorrentes de fatores externos. Consulte disponibilidade técnica para seu endereço.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -789,16 +792,31 @@
             }
         });
 
-        // Lógica do seletor de cidade
+        // Lógica do seletor de cidade e desbloqueio
         const citySelector = document.getElementById('city-selector');
-        const cityMessage = document.getElementById('city-message');
+        const cityActionContainer = document.getElementById('city-action-container');
+        const planosPlaceholder = document.getElementById('planos-placeholder');
+        const planosGrid = document.getElementById('planos-grid');
+
         if(citySelector) {
             citySelector.addEventListener('change', () => {
-                cityMessage.classList.remove('hidden');
-                cityMessage.classList.add('animate-pulse');
-                setTimeout(() => {
-                    cityMessage.classList.remove('animate-pulse');
-                }, 1000);
+                const cityName = citySelector.value;
+                
+                // 1. Mostrar Botão Estratégico no Hero
+                cityActionContainer.innerHTML = `
+                    <button onclick="document.getElementById('planos-section').scrollIntoView({behavior:'smooth'})" 
+                            class="mt-6 px-8 py-4 bg-green-500 hover:bg-green-400 text-white font-black rounded-full animate-bounce shadow-[0_0_20px_rgba(34,197,94,0.6)] flex items-center justify-center gap-3 w-full md:w-auto mx-auto transform hover:scale-105 transition-all text-sm md:text-base tracking-wide border-2 border-green-300">
+                        <i class="fas fa-lock-open"></i> OFERTAS LIBERADAS! CONFIRA AGORA
+                    </button>
+                `;
+                cityActionContainer.classList.remove('hidden');
+
+                // 2. Desbloquear Planos
+                if (planosPlaceholder && planosGrid) {
+                    planosPlaceholder.classList.add('hidden'); // Esconde o aviso de bloqueio
+                    planosGrid.classList.remove('hidden'); // Mostra os planos
+                    planosGrid.classList.add('animate-unlock'); // Adiciona animação de entrada
+                }
             });
         }
 

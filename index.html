@@ -52,6 +52,7 @@
                         'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
                         'logo-enter': 'logoEnter 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards',
                         'unlock': 'unlock 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards',
+                        'spin-fast': 'spin 0.7s linear infinite',
                     },
                     keyframes: {
                         float: {
@@ -186,6 +187,11 @@
             opacity: 0;
             visibility: hidden;
         }
+
+        /* Modal Styles */
+        #support-modal {
+            backdrop-filter: blur(8px);
+        }
     </style>
 </head>
 <body class="antialiased selection:bg-brand-primary selection:text-white">
@@ -207,8 +213,8 @@
         </div>
     </div>
 
-    <!-- BOTÃO FLUTUANTE DE SUPORTE -->
-    <a href="https://wa.me/5584999999999?text=Ol%C3%A1%2C%20preciso%20de%20suporte%20t%C3%A9cnico." target="_blank" class="fixed bottom-6 right-6 z-50 group hover:scale-105 transition-transform duration-300">
+    <!-- BOTÃO FLUTUANTE DE SUPORTE (Agora abre Modal) -->
+    <button onclick="openSupportModal()" class="fixed bottom-6 right-6 z-50 group hover:scale-105 transition-transform duration-300 focus:outline-none">
         <div class="relative flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white px-5 py-3 rounded-full shadow-[0_0_20px_rgba(37,211,102,0.5)] border border-green-400 cursor-pointer">
             <!-- Animação de Ping (Piscando) -->
             <span class="absolute inset-0 rounded-full bg-green-400 opacity-75 animate-ping"></span>
@@ -216,7 +222,56 @@
             <i class="fab fa-whatsapp text-2xl relative z-10"></i>
             <span class="font-bold text-sm whitespace-nowrap relative z-10">Precisa de Suporte?</span>
         </div>
-    </a>
+    </button>
+
+    <!-- MODAL DE TRIAGEM DE SUPORTE -->
+    <div id="support-modal" class="fixed inset-0 z-[100] hidden bg-black/80 flex items-center justify-center p-4">
+        <div class="glass-panel w-full max-w-md rounded-2xl p-6 relative border border-white/10 shadow-2xl animate-unlock">
+            <button onclick="closeSupportModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+            
+            <div class="text-center mb-6">
+                <div class="w-16 h-16 bg-brand-whatsapp/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-headset text-3xl text-brand-whatsapp"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-white">Como podemos ajudar?</h3>
+                <p class="text-gray-400 text-sm">Preencha abaixo para agilizar seu atendimento.</p>
+            </div>
+
+            <form id="support-form" onsubmit="sendSupportMessage(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-medium text-gray-400 mb-1 uppercase tracking-wide">Seu Nome</label>
+                    <input type="text" id="client-name" required placeholder="Digite seu nome completo" 
+                           class="w-full bg-brand-dark/50 border border-gray-700 rounded-lg px-4 py-3 text-white focus:border-brand-whatsapp focus:ring-1 focus:ring-brand-whatsapp focus:outline-none transition-all">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-medium text-gray-400 mb-1 uppercase tracking-wide">Qual o problema?</label>
+                    <select id="problem-type" required
+                            class="w-full bg-brand-dark/50 border border-gray-700 rounded-lg px-4 py-3 text-white focus:border-brand-whatsapp focus:ring-1 focus:ring-brand-whatsapp focus:outline-none transition-all">
+                        <option value="" disabled selected>Selecione uma opção...</option>
+                        <option value="Sem Conexão">🔴 Estou sem internet</option>
+                        <option value="Internet Lenta">🟡 Internet lenta/travando</option>
+                        <option value="Financeiro">📄 2ª via de fatura / Financeiro</option>
+                        <option value="Mudança de Endereço">🚚 Mudança de endereço</option>
+                        <option value="Outros">💬 Outros assuntos</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-medium text-gray-400 mb-1 uppercase tracking-wide">Detalhes (Opcional)</label>
+                    <textarea id="problem-desc" rows="2" placeholder="Ex: A luz LOS está vermelha..." 
+                              class="w-full bg-brand-dark/50 border border-gray-700 rounded-lg px-4 py-3 text-white focus:border-brand-whatsapp focus:ring-1 focus:ring-brand-whatsapp focus:outline-none transition-all resize-none"></textarea>
+                </div>
+
+                <button type="submit" class="w-full bg-brand-whatsapp hover:bg-green-600 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-green-900/20 transition-all transform hover:scale-[1.02] flex items-center justify-center gap-2 mt-2">
+                    <i class="fab fa-whatsapp text-xl"></i> Iniciar Atendimento
+                </button>
+            </form>
+            <p class="text-[10px] text-center text-gray-500 mt-4">Você será redirecionado para o WhatsApp da nossa central.</p>
+        </div>
+    </div>
 
     <!-- NAVBAR -->
     <nav class="fixed w-full z-50 glass-panel border-b-0 transition-all duration-300 backdrop-blur-xl" id="navbar">
@@ -236,11 +291,11 @@
                     <button onclick="navigateTo('planos-section')" class="text-sm font-medium text-gray-300 hover:text-white transition-colors tracking-wide">PLANOS</button>
                     <button onclick="navigateTo('sobre-page')" class="text-sm font-medium text-gray-300 hover:text-white transition-colors tracking-wide">SOBRE</button>
                     
-                    <a href="https://wa.me/5584999999999?text=Ol%C3%A1%2C%20gostaria%20de%20falar%20com%20um%20atendente." target="_blank" 
+                    <button onclick="openSupportModal()"
                        class="px-6 py-2.5 bg-white/5 hover:bg-brand-primary border border-white/10 hover:border-brand-primary text-white font-bold rounded-full text-xs transition-all duration-300 flex items-center gap-2 group">
                         <i class="fab fa-whatsapp text-lg text-green-400 group-hover:text-white transition-colors"></i> 
                         FALE COM NOSSO ATENDENTE
-                    </a>
+                    </button>
                 </div>
 
                 <div class="md:hidden">
@@ -256,9 +311,9 @@
                 <button onclick="navigateTo('home')" class="block w-full text-left px-4 py-3 text-base font-medium text-white hover:bg-white/5 rounded-xl transition-colors">Início</button>
                 <button onclick="navigateTo('planos-section')" class="block w-full text-left px-4 py-3 text-base font-medium text-white hover:bg-white/5 rounded-xl transition-colors">Planos</button>
                 <button onclick="navigateTo('sobre-page')" class="block w-full text-left px-4 py-3 text-base font-medium text-white hover:bg-white/5 rounded-xl transition-colors">Sobre a Empresa</button>
-                <a href="https://wa.me/5584999999999?text=Ol%C3%A1%2C%20gostaria%20de%20falar%20com%20um%20atendente." target="_blank" class="block w-full mt-4 px-4 py-4 bg-brand-primary text-center font-bold rounded-xl text-white shadow-lg shadow-brand-primary/20">
+                <button onclick="openSupportModal()" class="block w-full mt-4 px-4 py-4 bg-brand-primary text-center font-bold rounded-xl text-white shadow-lg shadow-brand-primary/20">
                     <i class="fab fa-whatsapp mr-2"></i> Fale com atendente
-                </a>
+                </button>
             </div>
         </div>
     </nav>
@@ -343,6 +398,63 @@
                 </div>
             </section>
 
+            <!-- NOVO: PROVA SOCIAL (DEPOIMENTOS COM FOTOS) -->
+            <section class="py-20 relative overflow-hidden bg-black/40 border-t border-white/5">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                    <div class="text-center mb-12 reveal">
+                        <h2 class="text-3xl font-bold text-white mb-2">Quem usa, <span class="text-brand-light">recomenda!</span></h2>
+                        <p class="text-gray-400">Veja o que nossos clientes dizem sobre a conexão.</p>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-3 gap-6 reveal">
+                        <!-- Depoimento 1 -->
+                        <div class="glass-panel p-6 rounded-2xl border border-white/5 relative hover:border-brand-primary/30 transition-colors">
+                            <div class="flex items-center gap-4 mb-4">
+                                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="João Carlos" class="w-12 h-12 rounded-full object-cover border-2 border-brand-primary">
+                                <div>
+                                    <h4 class="text-white font-bold">João Carlos</h4>
+                                    <p class="text-xs text-gray-400">Gamer</p>
+                                </div>
+                                <div class="ml-auto text-yellow-400 text-xs">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                            <p class="text-gray-300 text-sm italic">"O ping nos jogos melhorou demais. Antes travava toda hora, agora jogo liso. O suporte também é muito rápido."</p>
+                        </div>
+
+                        <!-- Depoimento 2 -->
+                        <div class="glass-panel p-6 rounded-2xl border border-white/5 relative hover:border-brand-primary/30 transition-colors">
+                            <div class="flex items-center gap-4 mb-4">
+                                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Maria Silva" class="w-12 h-12 rounded-full object-cover border-2 border-brand-primary">
+                                <div>
+                                    <h4 class="text-white font-bold">Maria Silva</h4>
+                                    <p class="text-xs text-gray-400">Home Office</p>
+                                </div>
+                                <div class="ml-auto text-yellow-400 text-xs">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                            <p class="text-gray-300 text-sm italic">"Trabalho de casa e preciso de estabilidade para videochamadas. A Local Telecom nunca me deixou na mão."</p>
+                        </div>
+
+                        <!-- Depoimento 3 -->
+                        <div class="glass-panel p-6 rounded-2xl border border-white/5 relative hover:border-brand-primary/30 transition-colors">
+                            <div class="flex items-center gap-4 mb-4">
+                                <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?ixlib=rb-1.2.1&auto=format&fit=crop&w=150&q=80" alt="Pizzaria do Zé" class="w-12 h-12 rounded-full object-cover border-2 border-brand-primary">
+                                <div>
+                                    <h4 class="text-white font-bold">Pizzaria do Zé</h4>
+                                    <p class="text-xs text-gray-400">Empresa</p>
+                                </div>
+                                <div class="ml-auto text-yellow-400 text-xs">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                            <p class="text-gray-300 text-sm italic">"A internet via rádio na nossa filial rural funciona perfeitamente. O sistema de pedidos não cai mais."</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <!-- PLANOS SECTION -->
             <section id="planos-section" class="py-24 relative overflow-hidden">
                 <div class="absolute inset-0 bg-gradient-to-b from-brand-dark via-[#050a1f] to-brand-dark pointer-events-none"></div>
@@ -353,7 +465,7 @@
                         <h2 class="text-3xl md:text-5xl font-black text-white mb-6">Escolha o seu <span class="text-brand-light text-neon">Plano Ideal</span></h2>
                     </div>
 
-                    <!-- MENSAGEM BLOQUEIO -->
+                    <!-- MENSAGEM BLOQUEIO / LOADER -->
                     <div id="planos-placeholder" class="text-center py-20 glass-panel max-w-2xl mx-auto rounded-3xl border-dashed border-2 border-white/10 animate-float">
                         <div class="w-20 h-20 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-6">
                             <i class="fas fa-lock text-4xl text-gray-500"></i>
@@ -365,6 +477,13 @@
                         </button>
                     </div>
 
+                    <!-- NOVO: LOADER ANIMADO -->
+                    <div id="loader-check" class="hidden text-center py-10 glass-panel max-w-2xl mx-auto rounded-3xl">
+                        <div class="animate-spin-fast rounded-full h-16 w-16 border-t-4 border-b-4 border-brand-primary mx-auto mb-6"></div>
+                        <h3 class="text-xl font-bold text-white mb-2 animate-pulse">Verificando viabilidade...</h3>
+                        <p class="text-gray-400 text-sm">Buscando as melhores ofertas para sua região.</p>
+                    </div>
+
                     <!-- CONTAINER DOS PLANOS -->
                     <div id="planos-container" class="hidden">
                         
@@ -374,10 +493,14 @@
                             <button id="btn-rural" onclick="switchPlanType('rural')" class="px-6 py-2 rounded-full text-gray-400 hover:text-white transition-colors text-sm font-medium">NA ZONA RURAL</button>
                         </div>
 
-                        <!-- FAIXA DE PROMOÇÃO -->
-                        <div class="text-center mb-8 animate-pulse">
-                            <div class="inline-block bg-gradient-to-r from-red-600 to-orange-600 text-white font-black text-xs md:text-sm px-6 py-2 rounded-full shadow-lg shadow-red-600/30">
-                                🔥 PROMOÇÃO IMPERDÍVEL: 30% OFF NOS 3 PRIMEIROS MESES! 🔥
+                        <!-- FAIXA DE PROMOÇÃO COM TIMER -->
+                        <div class="text-center mb-8">
+                            <div class="inline-block bg-gradient-to-r from-red-600 to-orange-600 text-white px-6 py-2 rounded-full shadow-lg shadow-red-600/30">
+                                <p class="font-bold text-sm md:text-base flex items-center gap-2">
+                                    <i class="fas fa-stopwatch animate-pulse"></i>
+                                    OFERTA RELÂMPAGO: Instalação Grátis encerra em: 
+                                    <span id="countdown" class="font-mono bg-black/30 px-2 py-0.5 rounded ml-1 tracking-widest text-yellow-300">04:59:00</span>
+                                </p>
                             </div>
                         </div>
 
@@ -403,7 +526,7 @@
                                 <div class="mt-auto">
                                     <p class="text-3xl font-black text-white mb-4">R$ 65<small class="text-sm text-gray-500 font-normal">/mês</small></p>
                                     <!-- Botão "Zap" Piscante -->
-                                    <a href="https://wa.me/5584999999999?text=Ol%C3%A1%2C%20quero%20assinar%20o%20plano%20FIBRA%2050MB." target="_blank" class="block w-full py-3 rounded-xl border border-brand-whatsapp/50 hover:bg-brand-whatsapp/10 text-center font-bold text-sm transition-all text-white flex items-center justify-center gap-2 group">
+                                    <a href="https://wa.me/5584921466248?text=Ol%C3%A1%2C%20quero%20assinar%20o%20plano%20FIBRA%2050MB." target="_blank" class="block w-full py-3 rounded-xl border border-brand-whatsapp/50 hover:bg-brand-whatsapp/10 text-center font-bold text-sm transition-all text-white flex items-center justify-center gap-2 group">
                                         <i class="fab fa-whatsapp text-brand-whatsapp text-xl animate-flash"></i> Chamar no Zap
                                     </a>
                                 </div>
@@ -427,7 +550,7 @@
                                 </div>
                                 <div class="mt-auto">
                                     <p class="text-3xl font-black text-white mb-4">R$ 70<small class="text-sm text-gray-500 font-normal">/mês</small></p>
-                                    <a href="https://wa.me/5584999999999?text=Ol%C3%A1%2C%20quero%20assinar%20o%20plano%20FIBRA%20100MB." target="_blank" class="block w-full py-3 rounded-xl border border-brand-whatsapp/50 hover:bg-brand-whatsapp/10 text-center font-bold text-sm transition-all text-white flex items-center justify-center gap-2 group">
+                                    <a href="https://wa.me/5584921466248?text=Ol%C3%A1%2C%20quero%20assinar%20o%20plano%20FIBRA%20100MB." target="_blank" class="block w-full py-3 rounded-xl border border-brand-whatsapp/50 hover:bg-brand-whatsapp/10 text-center font-bold text-sm transition-all text-white flex items-center justify-center gap-2 group">
                                         <i class="fab fa-whatsapp text-brand-whatsapp text-xl animate-flash"></i> Chamar no Zap
                                     </a>
                                 </div>
@@ -451,7 +574,7 @@
                                 </div>
                                 <div class="mt-auto">
                                     <p class="text-3xl font-black text-white mb-4">R$ 80<small class="text-sm text-gray-500 font-normal">/mês</small></p>
-                                    <a href="https://wa.me/5584999999999?text=Ol%C3%A1%2C%20quero%20assinar%20o%20plano%20FIBRA%20200MB." target="_blank" class="block w-full py-3 rounded-xl border border-brand-whatsapp/50 hover:bg-brand-whatsapp/10 text-center font-bold text-sm transition-all text-white flex items-center justify-center gap-2 group">
+                                    <a href="https://wa.me/5584921466248?text=Ol%C3%A1%2C%20quero%20assinar%20o%20plano%20FIBRA%20200MB." target="_blank" class="block w-full py-3 rounded-xl border border-brand-whatsapp/50 hover:bg-brand-whatsapp/10 text-center font-bold text-sm transition-all text-white flex items-center justify-center gap-2 group">
                                         <i class="fab fa-whatsapp text-brand-whatsapp text-xl animate-flash"></i> Chamar no Zap
                                     </a>
                                 </div>
@@ -482,7 +605,7 @@
                                     <div class="mt-auto">
                                         <p class="text-4xl font-black text-white mb-1">R$ 100<small class="text-lg text-gray-400 font-normal">,00</small></p>
                                         <p class="text-xs text-gray-500 mb-4">Mensalidade fixa</p>
-                                        <a href="https://wa.me/5584999999999?text=Ol%C3%A1%2C%20QUERO%20CONTRATAR%20O%20PLANO%20FIBRA%20DESTAQUE%20400MB." target="_blank" class="btn-premium block w-full py-4 rounded-xl text-center font-black text-sm text-white uppercase tracking-wide shadow-lg cursor-pointer flex items-center justify-center gap-2">
+                                        <a href="https://wa.me/5584921466248?text=Ol%C3%A1%2C%20QUERO%20CONTRATAR%20O%20PLANO%20FIBRA%20DESTAQUE%20400MB." target="_blank" class="btn-premium block w-full py-4 rounded-xl text-center font-black text-sm text-white uppercase tracking-wide shadow-lg cursor-pointer flex items-center justify-center gap-2">
                                             <i class="fab fa-whatsapp text-xl animate-bounce"></i> Contratar Agora
                                         </a>
                                     </div>
@@ -507,7 +630,7 @@
                                 </div>
                                 <div class="mt-auto">
                                     <p class="text-3xl font-black text-white mb-4">R$ 130<small class="text-sm text-gray-500 font-normal">/mês</small></p>
-                                    <a href="https://wa.me/5584999999999?text=Ol%C3%A1%2C%20quero%20assinar%20o%20plano%20FIBRA%20600MB." target="_blank" class="block w-full py-3 rounded-xl border border-brand-whatsapp/50 hover:bg-brand-whatsapp/10 text-center font-bold text-sm transition-all text-white flex items-center justify-center gap-2 group">
+                                    <a href="https://wa.me/5584921466248?text=Ol%C3%A1%2C%20quero%20assinar%20o%20plano%20FIBRA%20600MB." target="_blank" class="block w-full py-3 rounded-xl border border-brand-whatsapp/50 hover:bg-brand-whatsapp/10 text-center font-bold text-sm transition-all text-white flex items-center justify-center gap-2 group">
                                         <i class="fab fa-whatsapp text-brand-whatsapp text-xl animate-flash"></i> Chamar no Zap
                                     </a>
                                 </div>
@@ -537,7 +660,7 @@
                                 </div>
                                 <div class="mt-auto">
                                     <p class="text-3xl font-black text-white mb-4">R$ 70<small class="text-sm text-gray-500 font-normal">/mês</small></p>
-                                    <a href="https://wa.me/5584999999999?text=Ol%C3%A1%2C%20quero%20assinar%20o%20plano%20RURAL%2050MB." target="_blank" class="block w-full py-3 rounded-xl border border-brand-whatsapp/50 hover:bg-brand-whatsapp/10 text-center font-bold text-sm transition-all text-white flex items-center justify-center gap-2 group">
+                                    <a href="https://wa.me/5584921466248?text=Ol%C3%A1%2C%20quero%20assinar%20o%20plano%20RURAL%2050MB." target="_blank" class="block w-full py-3 rounded-xl border border-brand-whatsapp/50 hover:bg-brand-whatsapp/10 text-center font-bold text-sm transition-all text-white flex items-center justify-center gap-2 group">
                                         <i class="fab fa-whatsapp text-brand-whatsapp text-xl animate-flash"></i> Chamar no Zap
                                     </a>
                                 </div>
@@ -566,7 +689,7 @@
                                     </div>
                                     <div class="mt-auto">
                                         <p class="text-4xl font-black text-white mb-1">R$ 100<small class="text-lg text-gray-400 font-normal">,00</small></p>
-                                        <a href="https://wa.me/5584999999999?text=Ol%C3%A1%2C%20quero%20assinar%20o%20plano%20RURAL%20100MB." target="_blank" class="block w-full py-4 rounded-xl bg-gradient-to-r from-yellow-500 to-orange-500 hover:to-orange-400 text-white font-black text-sm uppercase tracking-wide shadow-lg cursor-pointer flex items-center justify-center gap-2">
+                                        <a href="https://wa.me/5584921466248?text=Ol%C3%A1%2C%20quero%20assinar%20o%20plano%20RURAL%20100MB." target="_blank" class="block w-full py-4 rounded-xl bg-gradient-to-r from-yellow-500 to-orange-500 hover:to-orange-400 text-white font-black text-sm uppercase tracking-wide shadow-lg cursor-pointer flex items-center justify-center gap-2">
                                             <i class="fab fa-whatsapp text-xl animate-bounce"></i> Contratar Agora
                                         </a>
                                     </div>
@@ -594,7 +717,7 @@
                                 </div>
                                 <div class="mt-auto">
                                     <p class="text-3xl font-black text-white mb-4">R$ 130<small class="text-sm text-gray-500 font-normal">/mês</small></p>
-                                    <a href="https://wa.me/5584999999999?text=Ol%C3%A1%2C%20quero%20assinar%20o%20plano%20RURAL%20200MB." target="_blank" class="block w-full py-3 rounded-xl border border-brand-whatsapp/50 hover:bg-brand-whatsapp/10 text-center font-bold text-sm transition-all text-white flex items-center justify-center gap-2 group">
+                                    <a href="https://wa.me/5584921466248?text=Ol%C3%A1%2C%20quero%20assinar%20o%20plano%20RURAL%20200MB." target="_blank" class="block w-full py-3 rounded-xl border border-brand-whatsapp/50 hover:bg-brand-whatsapp/10 text-center font-bold text-sm transition-all text-white flex items-center justify-center gap-2 group">
                                         <i class="fab fa-whatsapp text-brand-whatsapp text-xl animate-flash"></i> Chamar no Zap
                                     </a>
                                 </div>
@@ -687,10 +810,14 @@
                         <a href="https://www.instagram.com" target="_blank" class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-gray-400 hover:bg-gradient-to-tr hover:from-orange-500 hover:to-purple-600 hover:text-white transition-all">
                             <i class="fab fa-instagram"></i>
                         </a>
-                        <a href="https://wa.me/5584999999999" target="_blank" class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-gray-400 hover:bg-green-500 hover:text-white transition-all">
+                        <a href="https://wa.me/5584921466248" target="_blank" class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-gray-400 hover:bg-green-500 hover:text-white transition-all">
                             <i class="fab fa-whatsapp"></i>
                         </a>
                     </div>
+                    <!-- NOVO: Link Speedtest -->
+                    <a href="https://fast.com/pt/" target="_blank" class="text-gray-400 hover:text-brand-primary text-xs flex items-center gap-2 mt-4 transition-colors">
+                        <i class="fas fa-tachometer-alt"></i> Testar minha velocidade
+                    </a>
                 </div>
 
                 <div>
@@ -711,7 +838,7 @@
                         </li>
                         <li class="flex items-center gap-3 group cursor-pointer hover:text-white transition-colors">
                             <i class="fab fa-whatsapp text-brand-primary text-lg"></i>
-                            <span>(84) 99999-9999</span>
+                            <span>(84) 92146-6248</span>
                         </li>
                         <li class="flex items-center gap-3">
                             <i class="far fa-envelope text-brand-primary"></i>
@@ -733,6 +860,45 @@
 
     <!-- SCRIPTS -->
     <script>
+        // Modal functions
+        const supportModal = document.getElementById('support-modal');
+
+        function openSupportModal() {
+            supportModal.classList.remove('hidden');
+        }
+
+        function closeSupportModal() {
+            supportModal.classList.add('hidden');
+        }
+
+        function sendSupportMessage(e) {
+            e.preventDefault();
+            const name = document.getElementById('client-name').value;
+            const type = document.getElementById('problem-type').value;
+            const desc = document.getElementById('problem-desc').value;
+
+            const text = `Ol%C3%A1%2C%20gostaria%20de%20atendimento.%0A%0A*Nome:*%20${name}%0A*Motivo:*%20${type}%0A*Detalhes:*%20${desc}`;
+            
+            // Simula loading antes de enviar
+            const btn = e.target.querySelector('button');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+            
+            setTimeout(() => {
+                window.open(`https://wa.me/5584921466248?text=${text}`, '_blank');
+                closeSupportModal();
+                btn.innerHTML = originalText;
+                document.getElementById('support-form').reset();
+            }, 1000);
+        }
+
+        // Close modal on outside click
+        supportModal.addEventListener('click', (e) => {
+            if(e.target === supportModal) {
+                closeSupportModal();
+            }
+        });
+
         function toggleFaq(button) {
             const content = button.nextElementSibling;
             const icon = button.querySelector('i');
@@ -750,10 +916,38 @@
             }
         }
 
+        // TIMER LOGIC
+        function startTimer(duration, display) {
+            var timer = duration, hours, minutes, seconds;
+            setInterval(function () {
+                hours = parseInt(timer / 3600, 10);
+                minutes = parseInt((timer % 3600) / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+
+                hours = hours < 10 ? "0" + hours : hours;
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                if (display) {
+                    display.textContent = hours + ":" + minutes + ":" + seconds;
+                }
+
+                if (--timer < 0) {
+                    timer = duration;
+                }
+            }, 1000);
+        }
+
         window.addEventListener('load', () => {
+            // Splash Screen
             setTimeout(() => {
                 document.getElementById('splash-screen').classList.add('hidden-splash');
             }, 1200);
+
+            // Iniciar Timer (5 horas)
+            var fiveHours = 60 * 60 * 5; 
+            var display = document.querySelector('#countdown');
+            startTimer(fiveHours, display);
         });
 
         document.addEventListener('mousemove', (e) => {
@@ -798,22 +992,28 @@
         });
 
         const citySelector = document.getElementById('city-selector');
-        const cityActionContainer = document.getElementById('city-action-container');
         const planosPlaceholder = document.getElementById('planos-placeholder');
         const planosContainer = document.getElementById('planos-container');
+        const loaderCheck = document.getElementById('loader-check');
 
         if(citySelector) {
             citySelector.addEventListener('change', () => {
-                // REMOVED BUTTON LOGIC HERE
-                
-                if (planosPlaceholder && planosContainer) {
+                if (planosPlaceholder && planosContainer && loaderCheck) {
+                    // 1. Esconde o cadeado (placeholder)
                     planosPlaceholder.classList.add('hidden');
-                    planosContainer.classList.remove('hidden');
-                    planosContainer.classList.add('animate-fade-in-up');
                     
+                    // 2. Mostra o Loader de "Verificando"
+                    loaderCheck.classList.remove('hidden');
+
+                    // 3. Aguarda 1.5 segundos para mostrar os planos
                     setTimeout(() => {
+                        loaderCheck.classList.add('hidden');
+                        planosContainer.classList.remove('hidden');
+                        planosContainer.classList.add('animate-fade-in-up');
+                        
+                        // Scroll suave até a área de planos para garantir visibilidade
                         document.getElementById('planos-section').scrollIntoView({behavior:'smooth'});
-                    }, 600);
+                    }, 1500);
                 }
             });
         }
